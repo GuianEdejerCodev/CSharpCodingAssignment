@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using CodingAssignment.Models;
-using CodingAssignment.Services;
+﻿using CodingAssignment.Models;
 using CodingAssignment.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 
 namespace CodingAssignment.Controllers
 {
@@ -15,38 +9,74 @@ namespace CodingAssignment.Controllers
     public class FileController : ControllerBase
     {
 
-        private FileManagerService _fileManger;
+        private readonly IFileManagerService _fileManager;
 
-        public FileController()
+        public FileController(IFileManagerService fileManager)
         {
+            _fileManager = fileManager;
         }
 
         [HttpGet]
-        public DataFileModel Get()
+        public ActionResult<DataFileModel> Get()
         {
-            //Not yet implemented 
-            throw new NotImplementedException();
+            var data = _fileManager.GetData();
+            if (data == null)
+            {
+                return NotFound();
+            }
+            return data;
+        }
+
+        [HttpGet("{id}")]
+        public ActionResult<DataModel> Get(int id)
+        {
+            var dataModel = _fileManager.GetData(id);
+            if (dataModel == null)
+            {
+                return NotFound();
+            }
+            return dataModel;
         }
 
         [HttpPost]
-        public DataFileModel Post(DataModel model)
+        public ActionResult<DataFileModel> Post(DataModel model)
         {
-            //Not yet implemented 
-            throw new NotImplementedException();
+            var result = _fileManager.Insert(model);
+            if (!result)
+            {
+                return NotFound();
+            }
+
+            return _fileManager.GetData();
         }
 
         [HttpPut]
-        public DataFileModel Put(DataModel model, int id)
+        public ActionResult<DataFileModel> Put(DataModel model, int id)
         {
-            //Not yet implemented 
-            throw new NotImplementedException();
+            if (id != model.Id)
+            {
+                return BadRequest();
+            }
+
+            var result = _fileManager.Update(model, id);
+            if (!result)
+            {
+                return NotFound();
+            }
+
+            return _fileManager.GetData();
         }
 
         [HttpDelete]
-        public DataFileModel Delete(int id)
+        public ActionResult<DataFileModel> Delete(int id)
         {
-            //Not yet implemented 
-            throw new NotImplementedException();
+            var result = _fileManager.Delete(id);
+            if (!result)
+            {
+                return NotFound();
+            }
+
+            return _fileManager.GetData();
         }
     }
 }

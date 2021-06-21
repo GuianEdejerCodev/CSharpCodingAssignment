@@ -1,10 +1,18 @@
 ﻿{
-  "Data":  [
-    {
-      "Id": 1
-    },
-    {
-      "Id": 2
-    }
-  ]
+    "Data": [
+        {
+            "Id": 1,
+            "Dictionary": {
+                "0": [ "One", "Two", "Three", "Four" ],
+                "1": [ "Five", "Six", "Seven", "Eight" ]
+            }
+        },
+        {
+            "Id": 2,
+            "Dictionary": {
+                "3": [ "Nine", "Ten", "Eleven", "Twelve" ],
+                "4": [ "Thirteen", "Fourteen", "Fifteen", "Sixteen" ]
+            }
+        }
+    ]
 }

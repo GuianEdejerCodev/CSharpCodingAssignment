@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using CodingAssignment.Models;
+﻿using CodingAssignment.Models;
 
 namespace CodingAssignment.Services.Interfaces
 {
@@ -13,6 +9,12 @@ namespace CodingAssignment.Services.Interfaces
         /// </summary>
         /// <returns></returns>
         DataFileModel GetData();
+
+        /// <summary>
+        /// Returns the data model with the specified id
+        /// </summary>
+        /// <returns></returns>
+        DataModel GetData(int id);
 
         /// <summary>
         /// Insert new data model 
